@@ -292,7 +292,7 @@ class EducationalTypingApp {
         document.querySelectorAll('.key').forEach(key => key.classList.remove('active'));
         const targetChar = this.getNextTargetChar();
         if (targetChar) {
-            const keyElement = document.querySelector(`[data-key="${targetChar}"]`);
+            const keyElement = document.querySelector(`.key[data-key="${targetChar}"]`);
             if (keyElement) keyElement.classList.add('active');
         }
     }
@@ -302,7 +302,7 @@ class EducationalTypingApp {
         const targetChar = this.getNextTargetChar();
         if (targetChar && this.fingerMap[targetChar]) {
             const finger = this.fingerMap[targetChar];
-            const fingerElement = document.querySelector(`[data-finger="${finger}"]`);
+            const fingerElement = document.querySelector(`.finger[data-finger="${finger}"]`);
             if (fingerElement) fingerElement.classList.add('active');
         }
     }
@@ -452,14 +452,14 @@ class EducationalTypingApp {
     
     highlightKey(key) {
         if (/^[a-zA-Z]$/.test(key)) {
-            const keyElement = document.querySelector(`[data-key="${key.toLowerCase()}"]`);
+            const keyElement = document.querySelector(`.key[data-key="${key.toLowerCase()}"]`);
             if (keyElement) keyElement.classList.add('pressed');
         }
     }
     
     removeKeyHighlight(key) {
         if (/^[a-zA-Z]$/.test(key)) {
-            const keyElement = document.querySelector(`[data-key="${key.toLowerCase()}"]`);
+            const keyElement = document.querySelector(`.key[data-key="${key.toLowerCase()}"]`);
             if (keyElement) keyElement.classList.remove('pressed');
         }
     }
