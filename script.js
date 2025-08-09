@@ -81,11 +81,11 @@ class EducationalTypingApp {
                 title: 'レベル6: 日常会話',
                 description: '実際の日常会話で使われる表現をタイピング練習しましょう。',
                 sentences: [
-                    { japanese: 'おはようございます。今日も一日頑張りましょう。', romaji: 'ohayougozaimasu. kyoumo ichinichi ganbarimashou.', alternatives: [] },
-                    { japanese: '今日の天気は晴れですね。お出かけにぴったりです。', romaji: 'kyouno tenkiha haredesune. odekakeni pittaridesu.', alternatives: [] },
-                    { japanese: 'すみません、駅への行き方を教えてください。', romaji: 'sumimasen, ekieno ikikatawo oshietekudasai.', alternatives: [] },
-                    { japanese: 'この週末は何か予定がありますか？', romaji: 'kono shuumatsuha nanika yoteiga arimasuka?', alternatives: ['konosyumatuha'] },
-                    { japanese: 'また会いましょう。楽しみにしています。', romaji: 'mata aimashou. tanoshimini shiteimasu.', alternatives: [] },
+                    { japanese: 'おはようございます。今日も一日頑張りましょう。', romaji: 'ohayougozaimasu.kyoumo ichinichi ganbarimashou.', alternatives: [] },
+                    { japanese: '今日の天気は晴れですね。お出かけにぴったりです。', romaji: 'kyouno tenkiha haredesune.odekakeni pittaridesu.', alternatives: [] },
+                    { japanese: 'すみません、駅への行き方を教えてください。', romaji: 'sumimasen,ekieno ikikatawo oshietekudasai.', alternatives: [] },
+                    { japanese: 'この週末は何か予定がありますか？', romaji: 'kono shuumatsuha nanika yoteiga arimasuka?', alternatives: ['konosyumatuha nanika yoteiga arimasuka?'] },
+                    { japanese: 'また会いましょう。楽しみにしています。', romaji: 'mata aimashou.tanoshimini shiteimasu.', alternatives: [] },
                 ],
                 requiredAccuracy: 95
             }
@@ -97,7 +97,8 @@ class EducationalTypingApp {
             'z': 'left-pinky', 'x': 'left-ring', 'c': 'left-middle', 'v': 'left-index', 'b': 'left-index',
             'y': 'right-index', 'u': 'right-index', 'i': 'right-middle', 'o': 'right-ring', 'p': 'right-pinky',
             'h': 'right-index', 'j': 'right-index', 'k': 'right-middle', 'l': 'right-ring', ';': 'right-pinky',
-            'n': 'right-index', 'm': 'right-index', '-': 'right-pinky'
+            'n': 'right-index', 'm': 'right-index', '-': 'right-pinky',
+            '、': 'right-ring', '。': 'right-middle', '.': 'right-middle', ',': 'right-ring'
         };
         
         this.fingerNames = {
@@ -289,7 +290,46 @@ class EducationalTypingApp {
     getNextTargetChar() {
         if (this.isWordMode || this.isSentenceMode) {
             if (this.activePatterns.length > 0) {
-                return this.activePatterns[0][this.typedRomaji.length] || '';
+                // Find the best matching pattern based on current input
+                const inputLower = this.typedRomaji;
+                let bestPattern = null;
+                
+                // First try to find exact match
+                for (const pattern of this.activePatterns) {
+                    if (pattern.startsWith(inputLower)) {
+                        bestPattern = pattern;
+                        break;
+                    }
+                }
+                
+                // If no exact match, try normalized matching
+                if (!bestPattern) {
+                    const normalizeText = (text) => text.replace(/[\s\.,\?\!。、・？！]/g, '');
+                    const normalizedInput = normalizeText(inputLower);
+                    
+                    for (const pattern of this.activePatterns) {
+                        const normalizedPattern = normalizeText(pattern);
+                        if (normalizedPattern.startsWith(normalizedInput)) {
+                            // Calculate the next character position in the original pattern
+                            let charCount = 0;
+                            for (let i = 0; i < pattern.length; i++) {
+                                const char = pattern[i];
+                                if (!/[\s\.,\?\!。、・？！]/.test(char)) {
+                                    if (charCount === normalizedInput.length) {
+                                        return char;
+                                    }
+                                    charCount++;
+                                } else if (charCount === normalizedInput.length) {
+                                    return char;
+                                }
+                            }
+                        }
+                    }
+                }
+                
+                if (bestPattern) {
+                    return bestPattern[inputLower.length] || '';
+                }
             }
         } else {
             return this.currentTarget;
@@ -486,14 +526,14 @@ class EducationalTypingApp {
     }
     
     highlightKey(key) {
-        if (/^[a-zA-Z-]$/.test(key)) {
+        if (/^[a-zA-Z-]$/.test(key) || key === '、' || key === '。' || key === '.' || key === ',') {
             const keyElement = document.querySelector(`.key[data-key="${key.toLowerCase()}"]`);
             if (keyElement) keyElement.classList.add('pressed');
         }
     }
     
     removeKeyHighlight(key) {
-        if (/^[a-zA-Z-]$/.test(key)) {
+        if (/^[a-zA-Z-]$/.test(key) || key === '、' || key === '。' || key === '.' || key === ',') {
             const keyElement = document.querySelector(`.key[data-key="${key.toLowerCase()}"]`);
             if (keyElement) keyElement.classList.remove('pressed');
         }
