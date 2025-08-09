@@ -81,11 +81,11 @@ class EducationalTypingApp {
                 title: 'レベル6: 日常会話',
                 description: '実際の日常会話で使われる表現をタイピング練習しましょう。',
                 sentences: [
-                    { japanese: 'おはようございます。今日も一日頑張りましょう。', romaji: 'ohayougozaimasu.kyoumo ichinichi ganbarimashou.', alternatives: [] },
-                    { japanese: '今日の天気は晴れですね。お出かけにぴったりです。', romaji: 'kyouno tenkiha haredesune.odekakeni pittaridesu.', alternatives: [] },
-                    { japanese: 'すみません、駅への行き方を教えてください。', romaji: 'sumimasen,ekieno ikikatawo oshietekudasai.', alternatives: [] },
-                    { japanese: 'この週末は何か予定がありますか？', romaji: 'kono shuumatsuha nanika yoteiga arimasuka?', alternatives: ['konosyumatuha nanika yoteiga arimasuka?'] },
-                    { japanese: 'また会いましょう。楽しみにしています。', romaji: 'mata aimashou.tanoshimini shiteimasu.', alternatives: [] },
+                    { japanese: 'おはようございます。今日も一日頑張りましょう。', hiragana: 'おはようございます。きょうもいちにちがんばりましょう。', romaji: 'ohayougozaimasu.kyoumo ichinichi ganbarimashou.', alternatives: [] },
+                    { japanese: '今日の天気は晴れですね。お出かけにぴったりです。', hiragana: 'きょうのてんきははれですね。おでかけにぴったりです。', romaji: 'kyouno tenkiha haredesune.odekakeni pittaridesu.', alternatives: [] },
+                    { japanese: 'すみません、駅への行き方を教えてください。', hiragana: 'すみません、えきへのいきかたをおしえてください。', romaji: 'sumimasen,ekieno ikikatawo oshietekudasai.', alternatives: [] },
+                    { japanese: 'この週末は何か予定がありますか？', hiragana: 'このしゅうまつはなにかよていがありますか？', romaji: 'kono shuumatsuha nanika yoteiga arimasuka?', alternatives: ['konosyumatuha nanika yoteiga arimasuka?'] },
+                    { japanese: 'また会いましょう。楽しみにしています。', hiragana: 'またあいましょう。たのしみにしています。', romaji: 'mata aimashou.tanoshimini shiteimasu.', alternatives: [] },
                 ],
                 requiredAccuracy: 95
             }
@@ -256,24 +256,50 @@ class EducationalTypingApp {
             this.currentTarget = this.currentJapaneseItem.romaji;
             this.typedRomaji = '';
             
-            this.validRomajiPatterns = [this.currentJapaneseItem.romaji, ...this.currentJapaneseItem.alternatives].filter(p => p);
+            // Create base patterns from romaji and alternatives
+            const basePatterns = [this.currentJapaneseItem.romaji, ...this.currentJapaneseItem.alternatives].filter(p => p);
+            
+            // Add normalized versions (without spaces and punctuation) for input validation
+            const normalizeText = (text) => text.replace(/[\s\.,\?\!。、・？！]/g, '');
+            const allPatterns = [];
+            
+            for (const pattern of basePatterns) {
+                allPatterns.push(pattern);
+                const normalized = normalizeText(pattern);
+                if (normalized !== pattern && normalized.length > 0) {
+                    allPatterns.push(normalized);
+                }
+            }
+            
+            this.validRomajiPatterns = [...new Set(allPatterns)]; // Remove duplicates
             this.activePatterns = [...this.validRomajiPatterns];
 
-            document.getElementById('target-character').textContent = this.currentJapaneseItem.japanese;
-            const patternsText = this.validRomajiPatterns.join(' または ');
-            const normalizeText = (text) => text.replace(/[\s\.,\?\!。、・？！]/g, '');
-            const normalizedPatterns = this.validRomajiPatterns.map(p => normalizeText(p)).filter(p => p);
-            const hasNormalizedVersion = normalizedPatterns.length > 0 && normalizedPatterns.some(p => p !== this.validRomajiPatterns.find(orig => normalizeText(orig) === p));
+            // Display Japanese (original)
+            document.getElementById('japanese-display').textContent = this.currentJapaneseItem.japanese;
             
-            let instructionText = `「${this.currentJapaneseItem.japanese}」をローマ字で入力: ${patternsText}`;
-            if (this.isSentenceMode && hasNormalizedVersion) {
-                const uniqueNormalized = [...new Set(normalizedPatterns)];
-                instructionText += ` (スペースと句読点なしでも可: ${uniqueNormalized.join(' または ')})`;
+            // Display hiragana reading (if available)
+            if (this.currentJapaneseItem.hiragana) {
+                document.getElementById('hiragana-display').textContent = this.currentJapaneseItem.hiragana;
+                document.getElementById('hiragana-display').style.display = 'block';
+            } else {
+                document.getElementById('hiragana-display').style.display = 'none';
             }
-            document.getElementById('finger-instruction').textContent = instructionText;
+            
+            // Display romaji input patterns
+            const patternsText = this.validRomajiPatterns.join(' / ');
+            document.getElementById('romaji-display').textContent = patternsText;
+            
+            // Simplified instruction text
+            if (this.isSentenceMode) {
+                document.getElementById('finger-instruction').textContent = 'スペースと句読点は入力してもしなくても正解です';
+            } else {
+                document.getElementById('finger-instruction').textContent = '上記のローマ字を入力してください';
+            }
         } else {
             this.currentTarget = lessonData.chars[Math.floor(Math.random() * lessonData.chars.length)];
-            document.getElementById('target-character').textContent = this.currentTarget.toUpperCase();
+            document.getElementById('japanese-display').textContent = this.currentTarget.toUpperCase();
+            document.getElementById('hiragana-display').style.display = 'none'; // Hide hiragana for character practice
+            document.getElementById('romaji-display').textContent = ''; // Clear romaji display for character practice
             const finger = this.fingerMap[this.currentTarget];
             const fingerName = this.fingerNames[finger];
             document.getElementById('finger-instruction').textContent = `${fingerName}で「${this.currentTarget.toUpperCase()}」を押してください`;
@@ -490,7 +516,16 @@ class EducationalTypingApp {
         document.getElementById('weak-keys').textContent = weakKeys.length > 0 ? weakKeys.join(', ').toUpperCase() : 'なし';
 
         const nextLevelBtn = document.getElementById('next-level-btn');
-        nextLevelBtn.style.display = (passed && this.getNextLesson()) ? 'inline-block' : 'none';
+        const nextLesson = this.getNextLesson();
+        
+        // Show next level button if passed and not on the last level
+        if (passed && nextLesson) {
+            nextLevelBtn.style.display = 'inline-block';
+            nextLevelBtn.style.visibility = 'visible';
+        } else {
+            nextLevelBtn.style.display = 'none';
+            nextLevelBtn.style.visibility = 'hidden';
+        }
     }
     
     getNextLesson() {
