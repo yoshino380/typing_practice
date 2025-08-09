@@ -435,6 +435,10 @@ class EducationalTypingApp {
         this.showFeedback('correct', '正解！');
         this.updateStats();
         
+        // Clear input field for all modes
+        const inputElement = document.getElementById('typing-input');
+        inputElement.value = '';
+        
         setTimeout(() => {
             if (this.lessonProgress >= this.maxProgress) {
                 this.showResult();
