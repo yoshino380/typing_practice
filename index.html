@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>段階式タイピング練習</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📚 段階式タイピング練習 📚</h1>
+            <div class="progress-indicator">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+                <span class="progress-text" id="progress-text">レベル1: ホームポジション</span>
+            </div>
+        </header>
+        
+        <main>
+            <!-- レッスン選択画面 -->
+            <div class="lesson-menu" id="lesson-menu">
+                <h2>学習コースを選択してください</h2>
+                <div class="lesson-grid">
+                    <div class="lesson-card" data-lesson="home-position">
+                        <div class="lesson-icon">🏠</div>
+                        <h3>レベル1: ホームポジション</h3>
+                        <p>基本姿勢を覚えよう</p>
+                        <div class="lesson-keys">A S D F / J K L</div>
+                        <div class="lesson-status unlocked">開始可能</div>
+                    </div>
+                    
+                    <div class="lesson-card" data-lesson="basic-keys">
+                        <div class="lesson-icon">🔤</div>
+                        <h3>レベル2: 基本文字</h3>
+                        <p>近くのキーまで広げよう</p>
+                        <div class="lesson-keys">Q W E R T Y U I O P</div>
+                        <div class="lesson-status locked" id="basic-status">🔒 ロック中</div>
+                    </div>
+                    
+                    <div class="lesson-card" data-lesson="all-keys">
+                        <div class="lesson-icon">⌨️</div>
+                        <h3>レベル3: 全文字</h3>
+                        <p>全てのキーをマスターしよう</p>
+                        <div class="lesson-keys">Z X C V B N M</div>
+                        <div class="lesson-status locked" id="all-status">🔒 ロック中</div>
+                    </div>
+                    
+                    <div class="lesson-card" data-lesson="japanese-words">
+                        <div class="lesson-icon">🗾</div>
+                        <h3>レベル4: 日本語単語</h3>
+                        <p>簡単な単語を入力しよう</p>
+                        <div class="lesson-keys">ねこ いぬ さくら</div>
+                        <div class="lesson-status locked" id="words-status">🔒 ロック中</div>
+                    </div>
+                    <div class="lesson-card" data-lesson="long-japanese-words">
+                        <div class="lesson-icon">🏙️</div>
+                        <h3>レベル5: 長めの単語</h3>
+                        <p>文字数の多い単語に挑戦</p>
+                        <div class="lesson-keys">挑戦 冒険 物語</div>
+                        <div class="lesson-status locked" id="long-words-status">🔒 ロック中</div>
+                    </div>
+                    <div class="lesson-card" data-lesson="daily-conversation">
+                        <div class="lesson-icon">💬</div>
+                        <h3>レベル6: 日常会話</h3>
+                        <p>会話で使える文章を練習</p>
+                        <div class="lesson-keys">おはよう こんにちは</div>
+                        <div class="lesson-status locked" id="conversation-status">🔒 ロック中</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 学習画面 -->
+            <div class="learning-area" id="learning-area" style="display: none;">
+                <div class="lesson-info">
+                    <h2 id="lesson-title">レベル1: ホームポジション</h2>
+                    <p id="lesson-description">左手の指をA・S・D・F、右手の指をJ・K・L・;に置いて、正しい指で文字を入力しましょう。</p>
+                </div>
+                
+                <div class="practice-content">
+                    <div class="left-panel">
+                        <div class="finger-guide">
+                            <div class="hands">
+                                <div class="hand left-hand">
+                                    <div class="finger" data-finger="left-pinky">小指</div>
+                                    <div class="finger" data-finger="left-ring">薬指</div>
+                                    <div class="finger" data-finger="left-middle">中指</div>
+                                    <div class="finger" data-finger="left-index">人差指</div>
+                                </div>
+                                <div class="hand right-hand">
+                                    <div class="finger" data-finger="right-index">人差指</div>
+                                    <div class="finger" data-finger="right-middle">中指</div>
+                                    <div class="finger" data-finger="right-ring">薬指</div>
+                                    <div class="finger" data-finger="right-pinky">小指</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="practice-area">
+                            <div class="target-display">
+                                <div class="target-character" id="target-character">F</div>
+                                <div class="finger-instruction" id="finger-instruction">左手の人差し指で押してください</div>
+                            </div>
+                            
+                            <div class="input-section">
+                                <input type="text" id="typing-input" placeholder="ここにタイピングしてください..." autocomplete="off" maxlength="1">
+                                <div class="typing-feedback" id="typing-feedback"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="results-panel">
+                            <div class="stat">
+                                <span class="stat-label">正解数</span>
+                                <span class="stat-value" id="correct-count">0</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-label">ミス数</span>
+                                <span class="stat-value" id="miss-count">0</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-label">正答率</span>
+                                <span class="stat-value" id="accuracy">100%</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-label">レベル進捗</span>
+                                <span class="stat-value" id="level-progress">0/10</span>
+                            </div>
+                        </div>
+                        
+                        <div class="control-panel">
+                            <button id="back-btn" class="control-btn secondary">戻る</button>
+                            <button id="hint-btn" class="control-btn secondary">ヒント</button>
+                            <button id="next-btn" class="control-btn primary">次の練習</button>
+                        </div>
+                    </div>
+                    
+                    <div class="right-panel">
+                        <div class="keyboard-display">
+                            <div class="keyboard">
+                                <div class="key-row">
+                                    <span class="key" data-key="q" data-finger="left-pinky">Q</span>
+                                    <span class="key" data-key="w" data-finger="left-ring">W</span>
+                                    <span class="key" data-key="e" data-finger="left-middle">E</span>
+                                    <span class="key" data-key="r" data-finger="left-index">R</span>
+                                    <span class="key" data-key="t" data-finger="left-index">T</span>
+                                    <span class="key" data-key="y" data-finger="right-index">Y</span>
+                                    <span class="key" data-key="u" data-finger="right-index">U</span>
+                                    <span class="key" data-key="i" data-finger="right-middle">I</span>
+                                    <span class="key" data-key="o" data-finger="right-ring">O</span>
+                                    <span class="key" data-key="p" data-finger="right-pinky">P</span>
+                                </div>
+                                <div class="key-row home-row">
+                                    <span class="key home-key" data-key="a" data-finger="left-pinky">A</span>
+                                    <span class="key home-key" data-key="s" data-finger="left-ring">S</span>
+                                    <span class="key home-key" data-key="d" data-finger="left-middle">D</span>
+                                    <span class="key home-key" data-key="f" data-finger="left-index">F</span>
+                                    <span class="key home-key" data-key="g" data-finger="left-index">G</span>
+                                    <span class="key home-key" data-key="h" data-finger="right-index">H</span>
+                                    <span class="key home-key" data-key="j" data-finger="right-index">J</span>
+                                    <span class="key home-key" data-key="k" data-finger="right-middle">K</span>
+                                    <span class="key home-key" data-key="l" data-finger="right-ring">L</span>
+                                </div>
+                                <div class="key-row">
+                                    <span class="key" data-key="z" data-finger="left-pinky">Z</span>
+                                    <span class="key" data-key="x" data-finger="left-ring">X</span>
+                                    <span class="key" data-key="c" data-finger="left-middle">C</span>
+                                    <span class="key" data-key="v" data-finger="left-index">V</span>
+                                    <span class="key" data-key="b" data-finger="left-index">B</span>
+                                    <span class="key" data-key="n" data-finger="right-index">N</span>
+                                    <span class="key" data-key="m" data-finger="right-index">M</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="finger-instruction" id="finger-instruction">左手の人差し指で押してください</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 結果画面 -->
+            <div class="result-screen" id="result-screen" style="display: none;">
+                <div class="result-header">
+                    <h2>🎉 レベルクリア！</h2>
+                    <p id="result-message">おめでとうございます！</p>
+                </div>
+                
+                <div class="result-details">
+                    <div class="result-stat">
+                        <span class="result-label">総入力数</span>
+                        <span class="result-value" id="total-inputs">0</span>
+                    </div>
+                    <div class="result-stat">
+                        <span class="result-label">正解数</span>
+                        <span class="result-value" id="final-correct">0</span>
+                    </div>
+                    <div class="result-stat">
+                        <span class="result-label">正答率</span>
+                        <span class="result-value" id="final-accuracy">0%</span>
+                    </div>
+                    <div class="result-stat">
+                        <span class="result-label">苦手なキー</span>
+                        <span class="result-value" id="weak-keys">なし</span>
+                    </div>
+                </div>
+                
+                <div class="result-actions">
+                    <button id="retry-btn" class="control-btn secondary">もう一度</button>
+                    <button id="next-level-btn" class="control-btn primary">次のレベルへ</button>
+                    <button id="menu-btn" class="control-btn secondary">メニューに戻る</button>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>

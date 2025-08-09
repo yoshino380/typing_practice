@@ -1,0 +1,1032 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif;
+    background: linear-gradient(135deg, #e3f2fd 0%, #f3e5f5 50%, #fff3e0 100%);
+    height: 100vh;
+    color: #333;
+    overflow: hidden;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 10px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 15px;
+    flex-shrink: 0;
+}
+
+header h1 {
+    font-size: 1.8em;
+    color: #1565c0;
+    margin-bottom: 10px;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+}
+
+.progress-indicator {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+}
+
+.progress-bar {
+    width: 250px;
+    height: 8px;
+    background: rgba(255,255,255,0.8);
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #4caf50 0%, #8bc34a 100%);
+    border-radius: 6px;
+    width: 0%;
+    transition: width 0.3s ease;
+}
+
+.progress-text {
+    font-size: 1.1em;
+    color: #1565c0;
+    font-weight: 600;
+}
+
+main {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* レッスンメニュー */
+.lesson-menu {
+    padding: 40px;
+    text-align: center;
+}
+
+.lesson-menu h2 {
+    font-size: 1.8em;
+    color: #1565c0;
+    margin-bottom: 30px;
+    font-weight: 600;
+}
+
+.lesson-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.lesson-card {
+    background: white;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.lesson-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+}
+
+.lesson-card.unlocked {
+    border-color: #4caf50;
+}
+
+.lesson-card.unlocked:hover {
+    border-color: #66bb6a;
+}
+
+.lesson-card.locked {
+    opacity: 0.6;
+    cursor: not-allowed;
+    border-color: #e0e0e0;
+}
+
+.lesson-icon {
+    font-size: 3em;
+    margin-bottom: 16px;
+}
+
+.lesson-card h3 {
+    font-size: 1.3em;
+    color: #1565c0;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.lesson-card p {
+    color: #666;
+    margin-bottom: 12px;
+    line-height: 1.5;
+}
+
+.lesson-keys {
+    background: #f5f5f5;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+    color: #333;
+    margin-bottom: 12px;
+}
+
+.lesson-status {
+    font-weight: 600;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.9em;
+}
+
+.lesson-status.unlocked {
+    background: #e8f5e8;
+    color: #2e7d32;
+}
+
+.lesson-status.locked {
+    background: #f5f5f5;
+    color: #999;
+}
+
+/* 学習エリア */
+.learning-area {
+    padding: 15px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.lesson-info {
+    text-align: center;
+    margin-bottom: 10px;
+    flex-shrink: 0;
+}
+
+.lesson-info h2 {
+    font-size: 1.2em;
+    color: #1565c0;
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+.lesson-info p {
+    color: #666;
+    line-height: 1.3;
+    font-size: 0.85em;
+}
+
+/* メインコンテンツを横並びに */
+.practice-content {
+    display: flex;
+    gap: 20px;
+    align-items: stretch;
+    flex: 1;
+    min-height: 0;
+}
+
+.left-panel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    min-height: 0;
+}
+
+.right-panel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 指ガイド */
+.finger-guide {
+    flex-shrink: 0;
+}
+
+.hands {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    margin-bottom: 10px;
+}
+
+.hand {
+    text-align: center;
+}
+
+.finger {
+    display: inline-block;
+    margin: 2px;
+    padding: 4px 8px;
+    background: #e3f2fd;
+    border: 2px solid #90caf9;
+    border-radius: 12px;
+    font-size: 0.7em;
+    color: #1565c0;
+    transition: all 0.3s ease;
+}
+
+.finger.active {
+    background: #2196f3;
+    color: white;
+    transform: scale(1.05);
+    box-shadow: 0 3px 8px rgba(33, 150, 243, 0.4);
+}
+
+/* 練習エリア */
+.practice-area {
+    text-align: center;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 0;
+}
+
+.target-display {
+    margin-bottom: 15px;
+    flex-shrink: 0;
+}
+
+.target-character {
+    display: flex;
+    font-size: 2.2em;
+    font-weight: bold;
+    color: #1565c0;
+    background: linear-gradient(135deg, #e3f2fd, #f3e5f5);
+    min-width: 120px;
+    height: 80px;
+    border-radius: 40px;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 15px rgba(21, 101, 192, 0.2);
+    border: 3px solid #2196f3;
+    margin: 0 auto 10px;
+    white-space: nowrap;
+    text-align: center;
+    padding: 0 15px;
+}
+
+.finger-instruction {
+    font-size: 1.1em;
+    color: #333;
+    background: #f8f9fa;
+    padding: 10px 15px;
+    border-radius: 15px;
+    border-left: 4px solid #2196f3;
+    width: 100%;
+    max-width: 400px;
+    line-height: 1.4;
+    margin-top: 15px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    min-height: 48px; /* Add min-height to prevent collapsing */
+}
+
+/* キーボード */
+.keyboard-display {
+    margin: 0;
+    flex-shrink: 0;
+}
+
+.keyboard {
+    background: #37474f;
+    padding: 16px;
+    border-radius: 12px;
+    display: inline-block;
+    box-shadow: 0 6px 20px rgba(55, 71, 79, 0.3);
+}
+
+.key-row {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 6px;
+    gap: 4px;
+}
+
+.key {
+    width: 38px;
+    height: 38px;
+    background: #546e7a;
+    color: white;
+    border: 2px solid #607d8b;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 0.9em;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.key:hover {
+    background: #607d8b;
+    transform: translateY(-2px);
+}
+
+.key.active {
+    background: #f44336;
+    border-color: #d32f2f;
+    box-shadow: 0 0 20px rgba(244, 67, 54, 0.6);
+    transform: scale(1.1);
+    animation: pulse 1s infinite;
+}
+
+.key.pressed {
+    background: #ff9800;
+    border-color: #f57c00;
+    transform: scale(1.1);
+    box-shadow: 0 0 16px rgba(255, 152, 0, 0.6);
+}
+
+.key.correct {
+    background: #4caf50;
+    border-color: #388e3c;
+    box-shadow: 0 0 16px rgba(76, 175, 80, 0.6);
+}
+
+.home-key {
+    background: #2196f3;
+    border-color: #1976d2;
+}
+
+.home-key:hover {
+    background: #1976d2;
+}
+
+@keyframes pulse {
+    0%, 100% { 
+        transform: scale(1.1); 
+        box-shadow: 0 0 20px rgba(244, 67, 54, 0.6);
+    }
+    50% { 
+        transform: scale(1.15); 
+        box-shadow: 0 0 25px rgba(244, 67, 54, 0.8);
+    }
+}
+
+/* 入力セクション */
+.input-section {
+    margin: 15px 0;
+    flex-shrink: 0;
+}
+
+#typing-input {
+    width: 100%;
+    max-width: 300px;
+    padding: 12px 16px;
+    font-size: 1.1em;
+    border: 3px solid #2196f3;
+    border-radius: 10px;
+    text-align: center;
+    outline: none;
+    background: #f8f9fa;
+    transition: all 0.3s ease;
+}
+
+#typing-input:focus {
+    border-color: #1565c0;
+    background: white;
+    box-shadow: 0 0 12px rgba(21, 101, 192, 0.2);
+}
+
+.typing-feedback {
+    margin-top: 10px;
+    min-height: 20px;
+    font-size: 0.9em;
+    font-weight: 600;
+}
+
+.typing-feedback.correct {
+    color: #4caf50;
+}
+
+.typing-feedback.incorrect {
+    color: #f44336;
+}
+
+/* 結果パネル */
+.results-panel {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 15px 0;
+    flex-wrap: wrap;
+    flex-shrink: 0;
+}
+
+.stat {
+    background: linear-gradient(135deg, #e3f2fd, #f3e5f5);
+    border: 2px solid #90caf9;
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+    min-width: 80px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+}
+
+.stat-label {
+    display: block;
+    font-size: 0.7em;
+    color: #666;
+    margin-bottom: 4px;
+    font-weight: 500;
+}
+
+.stat-value {
+    display: block;
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #1565c0;
+}
+
+/* コントロールパネル */
+.control-panel {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 15px;
+    flex-wrap: wrap;
+    flex-shrink: 0;
+}
+
+.control-btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 20px;
+    font-size: 0.9em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+}
+
+.control-btn.primary {
+    background: linear-gradient(135deg, #2196f3, #1976d2);
+    color: white;
+}
+
+.control-btn.primary:hover {
+    background: linear-gradient(135deg, #1976d2, #1565c0);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(25, 118, 210, 0.4);
+}
+
+.control-btn.secondary {
+    background: linear-gradient(135deg, #f5f5f5, #e0e0e0);
+    color: #666;
+}
+
+.control-btn.secondary:hover {
+    background: linear-gradient(135deg, #e0e0e0, #d0d0d0);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+}
+
+/* 結果画面 */
+.result-screen {
+    padding: 40px;
+    text-align: center;
+}
+
+.result-header {
+    margin-bottom: 30px;
+}
+
+.result-header h2 {
+    font-size: 2.2em;
+    color: #1565c0;
+    margin-bottom: 12px;
+}
+
+.result-details {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin: 30px 0;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.result-stat {
+    background: white;
+    border: 2px solid #90caf9;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.result-label {
+    display: block;
+    font-size: 1em;
+    color: #666;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.result-value {
+    display: block;
+    font-size: 1.6em;
+    font-weight: bold;
+    color: #1565c0;
+}
+
+.result-actions {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 30px;
+    flex-wrap: wrap;
+}
+
+/* レスポンシブデザイン */
+@media (max-width: 1024px) {
+    .practice-content {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .left-panel, .right-panel {
+        flex: none;
+    }
+    
+    .keyboard {
+        padding: 12px;
+    }
+    
+    .key {
+        width: 35px;
+        height: 35px;
+        font-size: 0.85em;
+    }
+    
+    .target-character {
+        min-width: 100px;
+        height: 70px;
+        font-size: 2em;
+        padding: 0 12px;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+    
+    header h1 {
+        font-size: 1.8em;
+    }
+    
+    .progress-bar {
+        width: 250px;
+    }
+    
+    .lesson-grid {
+        grid-template-columns: 1fr;
+        max-width: 400px;
+    }
+    
+    .learning-area {
+        padding: 15px;
+    }
+    
+    .hands {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .target-character {
+        min-width: 90px;
+        height: 60px;
+        font-size: 1.8em;
+        padding: 0 10px;
+    }
+    
+    .finger-instruction {
+        font-size: 0.9em;
+        padding: 8px 12px;
+        max-width: 280px;
+    }
+    
+    .key {
+        width: 35px;
+        height: 35px;
+        font-size: 0.9em;
+    }
+    
+    .keyboard {
+        padding: 12px;
+    }
+    
+    #typing-input {
+        width: 95%;
+        font-size: 1.1em;
+        padding: 12px 16px;
+    }
+    
+    .results-panel {
+        gap: 10px;
+    }
+    
+    .stat {
+        min-width: 80px;
+        padding: 12px;
+    }
+    
+    .stat-value {
+        font-size: 1.2em;
+    }
+    
+    .control-panel {
+        gap: 8px;
+    }
+    
+    .control-btn {
+        padding: 10px 16px;
+        font-size: 0.95em;
+    }
+    
+    .result-details {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+}
+
+.difficulty-selector {
+    background: #f8f9fa;
+    padding: 25px;
+    border-bottom: 3px solid #e9ecef;
+    text-align: center;
+}
+
+.difficulty-selector h2 {
+    margin-bottom: 20px;
+    color: #2c3e50;
+    font-size: 1.5em;
+}
+
+.difficulty-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.difficulty-btn {
+    padding: 15px 25px;
+    border: 3px solid #3498db;
+    background: white;
+    color: #3498db;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 16px;
+    font-weight: bold;
+    box-shadow: 0 4px 8px rgba(52, 152, 219, 0.3);
+}
+
+.difficulty-btn:hover {
+    background: #3498db;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(52, 152, 219, 0.4);
+}
+
+.difficulty-btn.active {
+    background: #3498db;
+    color: white;
+    transform: scale(1.05);
+}
+
+.game-area {
+    padding: 40px;
+    text-align: center;
+}
+
+.word-display {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 15px;
+    padding: 30px;
+    margin-bottom: 30px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+.japanese-word {
+    margin-bottom: 15px;
+}
+
+#japanese-text {
+    font-size: 3.5em;
+    color: white;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    display: block;
+}
+
+.romaji-input {
+    font-size: 2em;
+    font-family: 'Courier New', monospace;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 15px 25px;
+    border-radius: 10px;
+    color: white;
+    min-height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#typed-text {
+    color: #4CAF50;
+    background: rgba(76, 175, 80, 0.2);
+    padding: 5px;
+    border-radius: 5px;
+}
+
+#current-text {
+    color: white;
+}
+
+.typing-section {
+    margin-bottom: 30px;
+}
+
+#typing-input {
+    width: 80%;
+    max-width: 500px;
+    padding: 20px;
+    font-size: 1.4em;
+    border: 3px solid #3498db;
+    border-radius: 15px;
+    text-align: center;
+    outline: none;
+    transition: all 0.3s ease;
+    background: #f8f9fa;
+    font-family: 'Courier New', monospace;
+}
+
+#typing-input:focus {
+    border-color: #e74c3c;
+    box-shadow: 0 0 20px rgba(231, 76, 60, 0.3);
+    background: white;
+}
+
+.keyboard-guide {
+    margin: 30px 0;
+    opacity: 0.8;
+}
+
+.keyboard {
+    background: #2c3e50;
+    padding: 20px;
+    border-radius: 15px;
+    display: inline-block;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+}
+
+.key-row {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 8px;
+    gap: 6px;
+}
+
+.key {
+    width: 50px;
+    height: 50px;
+    background: #34495e;
+    color: white;
+    border: 2px solid #4a6741;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+}
+
+.key:hover {
+    background: #4a6741;
+    transform: translateY(-2px);
+}
+
+.key.active {
+    background: #e74c3c;
+    box-shadow: 0 0 20px rgba(231, 76, 60, 0.6);
+    transform: scale(1.1);
+    animation: pulse 0.6s infinite;
+}
+
+.key.pressed {
+    background: #f39c12;
+    box-shadow: 0 0 25px rgba(243, 156, 18, 0.8);
+    transform: scale(1.2);
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1.1); }
+    50% { transform: scale(1.2); }
+}
+
+.key.correct {
+    background: #27ae60;
+    box-shadow: 0 0 20px rgba(39, 174, 96, 0.6);
+}
+
+.home-key {
+    background: #3498db;
+    border-color: #2980b9;
+}
+
+.home-key:hover {
+    background: #2980b9;
+}
+
+.space-key {
+    width: 200px;
+    margin: 0 auto;
+}
+
+.stats-panel {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin: 30px 0;
+    flex-wrap: wrap;
+}
+
+.stat-item {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    color: white;
+    padding: 20px;
+    border-radius: 15px;
+    min-width: 120px;
+    box-shadow: 0 5px 15px rgba(79, 172, 254, 0.3);
+    text-align: center;
+}
+
+.stat-label {
+    display: block;
+    font-size: 0.9em;
+    margin-bottom: 8px;
+    opacity: 0.9;
+}
+
+.stat-value {
+    display: block;
+    font-size: 2em;
+    font-weight: bold;
+}
+
+.control-buttons {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.control-btn {
+    padding: 15px 40px;
+    border: none;
+    border-radius: 25px;
+    font-size: 1.2em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+#start-btn {
+    background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+    color: white;
+}
+
+#start-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(76, 175, 80, 0.4);
+}
+
+#reset-btn {
+    background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+    color: white;
+}
+
+#reset-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(255, 107, 107, 0.4);
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+    
+    header h1 {
+        font-size: 2em;
+    }
+    
+    .difficulty-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .difficulty-btn {
+        width: 250px;
+    }
+    
+    .game-area {
+        padding: 20px;
+    }
+    
+    #japanese-text {
+        font-size: 2.5em;
+    }
+    
+    .romaji-input {
+        font-size: 1.5em;
+    }
+    
+    #typing-input {
+        width: 95%;
+        font-size: 1.2em;
+    }
+    
+    .key {
+        width: 40px;
+        height: 40px;
+        font-size: 0.9em;
+    }
+    
+    .stats-panel {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .control-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .control-btn {
+        width: 200px;
+    }
+}
+
+.celebration {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 4em;
+    color: #FFD700;
+    animation: celebration 2s ease-out;
+    z-index: 1000;
+    pointer-events: none;
+}
+
+@keyframes celebration {
+    0% {
+        transform: translate(-50%, -50%) scale(0);
+        opacity: 0;
+    }
+    50% {
+        transform: translate(-50%, -50%) scale(1.2);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0;
+    }
+}
