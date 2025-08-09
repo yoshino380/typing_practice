@@ -75,7 +75,7 @@ class EducationalTypingApp {
                     { japanese: '誕生日', romaji: 'tanjoubi', alternatives: ['tanjyobi'] },
                     { japanese: 'お正月', romaji: 'oshougatsu', alternatives: ['osyougatu'] },
                 ],
-                requiredAccuracy: 90
+                requiredAccuracy: 80
             },
             'daily-conversation': {
                 title: 'レベル6: 日常会話',
@@ -97,7 +97,7 @@ class EducationalTypingApp {
             'z': 'left-pinky', 'x': 'left-ring', 'c': 'left-middle', 'v': 'left-index', 'b': 'left-index',
             'y': 'right-index', 'u': 'right-index', 'i': 'right-middle', 'o': 'right-ring', 'p': 'right-pinky',
             'h': 'right-index', 'j': 'right-index', 'k': 'right-middle', 'l': 'right-ring', ';': 'right-pinky',
-            'n': 'right-index', 'm': 'right-index'
+            'n': 'right-index', 'm': 'right-index', '-': 'right-pinky'
         };
         
         this.fingerNames = {
@@ -260,7 +260,16 @@ class EducationalTypingApp {
 
             document.getElementById('target-character').textContent = this.currentJapaneseItem.japanese;
             const patternsText = this.validRomajiPatterns.join(' または ');
-            document.getElementById('finger-instruction').textContent = `「${this.currentJapaneseItem.japanese}」をローマ字で入力: ${patternsText}`;
+            const normalizeText = (text) => text.replace(/[\s\.,\?\!。、・？！]/g, '');
+            const normalizedPatterns = this.validRomajiPatterns.map(p => normalizeText(p)).filter(p => p);
+            const hasNormalizedVersion = normalizedPatterns.length > 0 && normalizedPatterns.some(p => p !== this.validRomajiPatterns.find(orig => normalizeText(orig) === p));
+            
+            let instructionText = `「${this.currentJapaneseItem.japanese}」をローマ字で入力: ${patternsText}`;
+            if (this.isSentenceMode && hasNormalizedVersion) {
+                const uniqueNormalized = [...new Set(normalizedPatterns)];
+                instructionText += ` (スペースと句読点なしでも可: ${uniqueNormalized.join(' または ')})`;
+            }
+            document.getElementById('finger-instruction').textContent = instructionText;
         } else {
             this.currentTarget = lessonData.chars[Math.floor(Math.random() * lessonData.chars.length)];
             document.getElementById('target-character').textContent = this.currentTarget.toUpperCase();
@@ -312,15 +321,31 @@ class EducationalTypingApp {
         
         if (this.isWordMode || this.isSentenceMode) {
             const inputLower = input.toLowerCase();
-            const remainingPatterns = this.validRomajiPatterns.filter(p => p.startsWith(inputLower));
+            
+            // Create normalized versions for comparison (remove spaces and punctuation)
+            const normalizeText = (text) => text.replace(/[\s\.,\?\!。、・？！]/g, '');
+            const normalizedInput = normalizeText(inputLower);
+            
+            const remainingPatterns = this.validRomajiPatterns.filter(p => {
+                const normalizedPattern = normalizeText(p);
+                return normalizedPattern.startsWith(normalizedInput) || p.startsWith(inputLower);
+            });
 
             if (remainingPatterns.length > 0) {
                 this.activePatterns = remainingPatterns;
                 this.typedRomaji = inputLower;
 
-                const isCompleted = this.activePatterns.some(p => p === inputLower);
-                if (isCompleted) {
-                    this.currentTarget = this.activePatterns.find(p => p === inputLower);
+                // Check completion with both normalized and exact matching
+                const isCompletedExact = this.activePatterns.some(p => p === inputLower);
+                const isCompletedNormalized = this.activePatterns.some(p => {
+                    const normalizedPattern = normalizeText(p);
+                    return normalizedPattern === normalizedInput && normalizedInput.length > 0;
+                });
+                
+                if (isCompletedExact || isCompletedNormalized) {
+                    this.currentTarget = this.activePatterns.find(p => 
+                        p === inputLower || normalizeText(p) === normalizedInput
+                    );
                     this.handleCorrectAnswer();
                 } else {
                     this.highlightTargetKey();
@@ -396,24 +421,34 @@ class EducationalTypingApp {
         const accuracy = totalAttempts > 0 ? Math.round((this.stats.correct / totalAttempts) * 100) : 100;
         const lessonData = this.lessons[this.currentLesson];
         const passed = accuracy >= lessonData.requiredAccuracy;
-        
+
         if (passed) {
             this.progressData[this.currentLesson].completed = true;
             this.progressData[this.currentLesson].accuracy = accuracy;
             this.saveProgress();
         }
-        
+
         document.getElementById('learning-area').style.display = 'none';
         document.getElementById('result-screen').style.display = 'block';
-        
-        document.getElementById('result-message').textContent = passed ? `素晴らしい！レベルをクリアしました！` : `もう少しです。正答率${lessonData.requiredAccuracy}%以上でクリアできます。`;
+
+        const resultTitle = document.getElementById('result-title');
+        const resultMessage = document.getElementById('result-message');
+
+        if (passed) {
+            resultTitle.textContent = '🎉 レベルクリア！';
+            resultMessage.textContent = '素晴らしい！次のレベルに進みましょう！';
+        } else {
+            resultTitle.textContent = '😭 もう一歩！';
+            resultMessage.textContent = `残念！クリアには正答率${lessonData.requiredAccuracy}%以上が必要です。`;
+        }
+
         document.getElementById('total-inputs').textContent = totalAttempts;
         document.getElementById('final-correct').textContent = this.stats.correct;
         document.getElementById('final-accuracy').textContent = accuracy + '%';
-        
+
         const weakKeys = Object.keys(this.stats.weakKeys).sort((a, b) => this.stats.weakKeys[b] - this.stats.weakKeys[a]).slice(0, 3);
         document.getElementById('weak-keys').textContent = weakKeys.length > 0 ? weakKeys.join(', ').toUpperCase() : 'なし';
-        
+
         const nextLevelBtn = document.getElementById('next-level-btn');
         nextLevelBtn.style.display = (passed && this.getNextLesson()) ? 'inline-block' : 'none';
     }
@@ -451,14 +486,14 @@ class EducationalTypingApp {
     }
     
     highlightKey(key) {
-        if (/^[a-zA-Z]$/.test(key)) {
+        if (/^[a-zA-Z-]$/.test(key)) {
             const keyElement = document.querySelector(`.key[data-key="${key.toLowerCase()}"]`);
             if (keyElement) keyElement.classList.add('pressed');
         }
     }
     
     removeKeyHighlight(key) {
-        if (/^[a-zA-Z]$/.test(key)) {
+        if (/^[a-zA-Z-]$/.test(key)) {
             const keyElement = document.querySelector(`.key[data-key="${key.toLowerCase()}"]`);
             if (keyElement) keyElement.classList.remove('pressed');
         }
