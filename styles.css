@@ -343,10 +343,11 @@ main {
     width: 100%;
     max-width: 400px;
     line-height: 1.4;
-    margin-top: 15px;
+    margin: 15px auto;
     text-align: center;
     box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-    min-height: 48px; /* Add min-height to prevent collapsing */
+    min-height: 48px;
+    flex-shrink: 0;
 }
 
 /* キーボード */
