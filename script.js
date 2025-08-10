@@ -81,13 +81,16 @@ class EducationalTypingApp {
                 title: 'レベル6: 日常会話',
                 description: '実際の日常会話で使われる表現をタイピング練習しましょう。',
                 sentences: [
-                    { japanese: 'おはようございます。今日も一日頑張りましょう。', hiragana: 'おはようございます。きょうもいちにちがんばりましょう。', romaji: 'ohayougozaimasu.kyoumo ichinichi ganbarimashou.', alternatives: [] },
-                    { japanese: '今日の天気は晴れですね。お出かけにぴったりです。', hiragana: 'きょうのてんきははれですね。おでかけにぴったりです。', romaji: 'kyouno tenkiha haredesune.odekakeni pittaridesu.', alternatives: [] },
-                    { japanese: 'すみません、駅への行き方を教えてください。', hiragana: 'すみません、えきへのいきかたをおしえてください。', romaji: 'sumimasen,ekieno ikikatawo oshietekudasai.', alternatives: [] },
-                    { japanese: 'この週末は何か予定がありますか？', hiragana: 'このしゅうまつはなにかよていがありますか？', romaji: 'kono shuumatsuha nanika yoteiga arimasuka?', alternatives: ['konosyumatuha nanika yoteiga arimasuka?'] },
-                    { japanese: 'また会いましょう。楽しみにしています。', hiragana: 'またあいましょう。たのしみにしています。', romaji: 'mata aimashou.tanoshimini shiteimasu.', alternatives: [] },
+                    { japanese: 'おはようございます', hiragana: 'おはようございます', romaji: 'ohayougozaimasu', alternatives: [] },
+                    { japanese: 'こんにちは', hiragana: 'こんにちは', romaji: 'konnichiha', alternatives: ['konnitiha'] },
+                    { japanese: 'ありがとうございます', hiragana: 'ありがとうございます', romaji: 'arigatougozaimasu', alternatives: [] },
+                    { japanese: 'すみません', hiragana: 'すみません', romaji: 'sumimasen', alternatives: [] },
+                    { japanese: 'おやすみなさい', hiragana: 'おやすみなさい', romaji: 'oyasuminasai', alternatives: [] },
+                    { japanese: 'いらっしゃいませ', hiragana: 'いらっしゃいませ', romaji: 'irasshaimase', alternatives: ['irassyaimase'] },
+                    { japanese: 'よろしくお願いします', hiragana: 'よろしくおねがいします', romaji: 'yoroshikuonegaishimasu', alternatives: ['yorosikuonegaisimasu'] },
+                    { japanese: 'お疲れ様でした', hiragana: 'おつかれさまでした', romaji: 'otsukaresama', alternatives: ['otukaresamadesita'] },
                 ],
-                requiredAccuracy: 95
+                requiredAccuracy: 85
             }
         };
         
@@ -290,11 +293,7 @@ class EducationalTypingApp {
             document.getElementById('romaji-display').textContent = patternsText;
             
             // Simplified instruction text
-            if (this.isSentenceMode) {
-                document.getElementById('finger-instruction').textContent = 'スペースと句読点は入力してもしなくても正解です';
-            } else {
-                document.getElementById('finger-instruction').textContent = '上記のローマ字を入力してください';
-            }
+            document.getElementById('finger-instruction').textContent = '上記のローマ字を入力してください';
         } else {
             this.currentTarget = lessonData.chars[Math.floor(Math.random() * lessonData.chars.length)];
             document.getElementById('japanese-display').textContent = this.currentTarget.toUpperCase();
