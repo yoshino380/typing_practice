@@ -4,7 +4,7 @@ class EducationalTypingApp {
         this.currentScreen = 'lesson-menu'; // 'lesson-menu', 'learning', 'result'
         this.currentCharIndex = 0;
         this.lessonProgress = 0;
-        this.maxProgress = 20; // 各レベルで20問
+        this.maxProgress = 20; // 各レベルで20問（レベル6は30問）
         
         this.stats = {
             correct: 0,
@@ -109,6 +109,31 @@ class EducationalTypingApp {
                     { japanese: 'りょこう', romaji: 'ryokou', alternatives: ['ryokoo'] },
                     { japanese: 'しゅくだい', romaji: 'shukudai', alternatives: ['syukudai'] },
                     { japanese: 'せんたく', romaji: 'sentaku', alternatives: [] },
+                    { japanese: 'びじゅつかん', romaji: 'bijutsukan', alternatives: ['bizutsukan'] },
+                    { japanese: 'やくそく', romaji: 'yakusoku', alternatives: [] },
+                    { japanese: 'ちゅうしゃじょう', romaji: 'chuushajou', alternatives: ['tyuusyazyou'] },
+                    { japanese: 'けしゴム', romaji: 'keshigomu', alternatives: [] },
+                    { japanese: 'あたらしい', romaji: 'atarashii', alternatives: ['atarasii'] },
+                    { japanese: 'つぎのひ', romaji: 'tsuginohi', alternatives: ['tuginohi'] },
+                    { japanese: 'きのう', romaji: 'kinou', alternatives: ['kinoo'] },
+                    { japanese: 'あした', romaji: 'ashita', alternatives: [] },
+                    { japanese: 'らいしゅう', romaji: 'raishuu', alternatives: ['raisyuu'] },
+                    { japanese: 'せんしゅう', romaji: 'senshuu', alternatives: ['sensyuu'] },
+                    { japanese: 'ともだち', romaji: 'tomodachi', alternatives: ['tomodati'] },
+                    { japanese: 'ざっし', romaji: 'zasshi', alternatives: ['zassi'] },
+                    { japanese: 'もんだい', romaji: 'mondai', alternatives: [] },
+                    { japanese: 'けっこん', romaji: 'kekkon', alternatives: [] },
+                    { japanese: 'しゃしん', romaji: 'shashin', alternatives: ['syasin'] },
+                    { japanese: 'じかん', romaji: 'jikan', alternatives: ['zikan'] },
+                    { japanese: 'ちいさい', romaji: 'chiisai', alternatives: ['tiisai'] },
+                    { japanese: 'おおきい', romaji: 'ookii', alternatives: [] },
+                    { japanese: 'たのしい', romaji: 'tanoshii', alternatives: ['tanosii'] },
+                    { japanese: 'かなしい', romaji: 'kanashii', alternatives: ['kanasii'] },
+                    { japanese: 'うれしい', romaji: 'ureshii', alternatives: ['uresii'] },
+                    { japanese: 'つまらない', romaji: 'tsumaranai', alternatives: ['tumaranai'] },
+                    { japanese: 'むずかしい', romaji: 'muzukashii', alternatives: ['muzukasii'] },
+                    { japanese: 'やさしい', romaji: 'yasashii', alternatives: ['yasasii'] },
+                    { japanese: 'おもしろい', romaji: 'omoshiroi', alternatives: [] },
                 ],
                 requiredAccuracy: 80
             },
@@ -141,8 +166,34 @@ class EducationalTypingApp {
                     { japanese: 'だいじょうぶです', hiragana: 'だいじょうぶです', romaji: 'daijoubudesu', alternatives: ['daizyoubudesu'] },
                     { japanese: 'わかりました', hiragana: 'わかりました', romaji: 'wakarimashita', alternatives: ['wakarimasita'] },
                     { japanese: 'しつれいします', hiragana: 'しつれいします', romaji: 'shitsureishimasu', alternatives: ['sitsureisimasu'] },
+                    { japanese: 'お世話になります', hiragana: 'おせわになります', romaji: 'osewaninarimasu', alternatives: [] },
+                    { japanese: 'お先に失礼します', hiragana: 'おさきにしつれいします', romaji: 'osakinishitsureishimasu', alternatives: ['osakinisitsureisimasu'] },
+                    { japanese: 'いいお天気ですね', hiragana: 'いいおてんきですね', romaji: 'iiotenkidesune', alternatives: [] },
+                    { japanese: 'お忙しいですか', hiragana: 'おいそがしいですか', romaji: 'oisogashiidesuka', alternatives: ['oisogasiidesuka'] },
+                    { japanese: 'また明日', hiragana: 'またあした', romaji: 'mataashita', alternatives: [] },
+                    { japanese: 'また今度', hiragana: 'またこんど', romaji: 'matakondo', alternatives: [] },
+                    { japanese: 'お疲れ様', hiragana: 'おつかれさま', romaji: 'otsukaresama', alternatives: ['otukaresamadesu'] },
+                    { japanese: 'いいえ、けっこうです', hiragana: 'いいえ、けっこうです', romaji: 'iie,kekkoudes', alternatives: [] },
+                    { japanese: 'ちょっと待ってください', hiragana: 'ちょっとまってください', romaji: 'chottomattekudasai', alternatives: ['tyottomattekudasai'] },
+                    { japanese: 'お時間ありますか', hiragana: 'おじかんありますか', romaji: 'ojikanarimas', alternatives: ['ozikanarimaska'] },
+                    { japanese: 'お手伝いしましょうか', hiragana: 'おてつだいしましょうか', romaji: 'otetsudaishimashoka', alternatives: [] },
+                    { japanese: 'とても美味しいです', hiragana: 'とてもおいしいです', romaji: 'temoishiides', alternatives: ['temooisiidesu'] },
+                    { japanese: 'お腹がすきました', hiragana: 'おなかがすきました', romaji: 'onakagasukimashita', alternatives: [] },
+                    { japanese: 'のどが渇きました', hiragana: 'のどがかわきました', romaji: 'nodogakawakimashita', alternatives: [] },
+                    { japanese: '眠くなりました', hiragana: 'ねむくなりました', romaji: 'nemukumarimashita', alternatives: [] },
+                    { japanese: 'お金を貸してください', hiragana: 'おかねをかしてください', romaji: 'okanewokashitekudasai', alternatives: [] },
+                    { japanese: 'どこで買いましたか', romaji: 'dokoaikaimashitaka', alternatives: [] },
+                    { japanese: 'いくらですか', hiragana: 'いくらですか', romaji: 'ikuraeska', alternatives: [] },
+                    { japanese: 'それは高すぎます', hiragana: 'それはたかすぎます', romaji: 'sorehatakasugimasku', alternatives: [] },
+                    { japanese: 'もう少し安くしてください', hiragana: 'もうすこしやすくしてください', romaji: 'mousukoshiyasukushitekudasai', alternatives: [] },
+                    { japanese: '今日は暑いですね', hiragana: 'きょうはあついですね', romaji: 'kyouhaatsuidesune', alternatives: [] },
+                    { japanese: '今日は寒いですね', hiragana: 'きょうはさむいですね', romaji: 'kyouhasamuidesune', alternatives: [] },
+                    { japanese: '雨が降りそうです', hiragana: 'あめがふりそうです', romaji: 'amegafurisoudesu', alternatives: [] },
+                    { japanese: '電話番号を教えてください', hiragana: 'でんわばんごうをおしえてください', romaji: 'denwabangouwoshieekudasai', alternatives: [] },
+                    { japanese: '住所はどこですか', hiragana: 'じゅうしょはどこですか', romaji: 'juushowadokodesuka', alternatives: ['zyuusyowadokodeka'] },
+                    { japanese: '今何時ですか', hiragana: 'いまなんじですか', romaji: 'imananjidesuka', alternatives: [] }
                 ],
-                requiredAccuracy: 85
+                requiredAccuracy: 90
             }
         };
         
@@ -284,6 +335,9 @@ class EducationalTypingApp {
         this.currentScreen = 'learning';
         this.lessonProgress = 0;
         this.stats = { correct: 0, incorrect: 0, totalKeystrokes: 0, weakKeys: {}, startTime: new Date() };
+        
+        // レベル6のみ30問、他は20問
+        this.maxProgress = lesson === 'daily-conversation' ? 30 : 20;
         
         document.getElementById('lesson-menu').style.display = 'none';
         document.getElementById('learning-area').style.display = 'block';
