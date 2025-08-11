@@ -299,6 +299,13 @@ class EducationalTypingApp {
         document.querySelectorAll('.lesson-card').forEach(card => {
             const lesson = card.dataset.lesson;
             const statusElement = card.querySelector('.lesson-status');
+
+            // 既存のリセットボタンを削除
+            const existingResetBtn = card.querySelector('.reset-btn');
+            if (existingResetBtn) {
+                existingResetBtn.remove();
+            }
+
             const isUnlocked = this.isLessonUnlocked(lesson);
             card.classList.toggle('unlocked', isUnlocked);
             card.classList.toggle('locked', !isUnlocked);
@@ -306,6 +313,19 @@ class EducationalTypingApp {
                 if (this.progressData[lesson] && this.progressData[lesson].completed) {
                     statusElement.textContent = '✅ クリア済み';
                     statusElement.className = 'lesson-status completed';
+
+                    // リセットボタンを追加
+                    const resetBtn = document.createElement('button');
+                    resetBtn.textContent = '進捗をリセット';
+                    resetBtn.className = 'reset-btn';
+                    resetBtn.addEventListener('click', (e) => {
+                        e.stopPropagation(); // カード本体のクリックイベントを防ぐ
+                        if (confirm(`「${this.lessons[lesson].title}」の進捗をリセットしますか？`)) {
+                            this.resetLessonProgress(lesson);
+                        }
+                    });
+                    card.appendChild(resetBtn);
+
                 } else {
                     statusElement.textContent = '開始可能';
                     statusElement.className = 'lesson-status unlocked';
@@ -800,6 +820,15 @@ class EducationalTypingApp {
     goToNextLevel() {
         const nextLesson = this.getNextLesson();
         if (nextLesson) this.startLesson(nextLesson);
+    }
+
+    resetLessonProgress(lesson) {
+        if (this.progressData[lesson]) {
+            this.progressData[lesson].completed = false;
+            this.progressData[lesson].accuracy = 0;
+            this.saveProgress();
+            this.updateProgressDisplay();
+        }
     }
     
     nextQuestion() {

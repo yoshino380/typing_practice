@@ -907,3 +907,40 @@ main {
         padding: 2px 6px;
     }
 }
+
+/* 画面が非常に小さい場合の調整 */
+@media (max-width: 360px) {
+    .key {
+        width: 26px;
+        height: 26px;
+        font-size: 0.8em;
+    }
+    
+    .keyboard {
+        padding: 8px;
+    }
+}
+
+/* リセットボタンのスタイル */
+.reset-btn {
+    margin-top: 10px;
+    padding: 5px 12px;
+    font-size: 0.8em;
+    font-weight: 600;
+    background-color: #ffebee;
+    color: #c62828;
+    border: 1px solid #ffcdd2;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.reset-btn:hover {
+    background-color: #ffcdd2;
+    color: #b71c1c;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
