@@ -151,7 +151,7 @@ class EducationalTypingApp {
                     { japanese: 'おやすみなさい', hiragana: 'おやすみなさい', romaji: 'oyasuminasai', alternatives: [] },
                     { japanese: 'いらっしゃいませ', hiragana: 'いらっしゃいませ', romaji: 'irasshaimase', alternatives: ['irassyaimase'] },
                     { japanese: 'よろしくお願いします', hiragana: 'よろしくおねがいします', romaji: 'yoroshikuonegaishimasu', alternatives: ['yorosikuonegaisimasu'] },
-                    { japanese: 'お疲れ様でした', hiragana: 'おつかれさまでした', romaji: 'otsukaresama', alternatives: ['otukaresamadesita'] },
+                    { japanese: 'お疲れ様でした', hiragana: 'おつかれさまでした', romaji: 'otsukareasamadeshita', alternatives: ['otukaresamadesita'] },
                     { japanese: 'はじめまして', hiragana: 'はじめまして', romaji: 'hajimemashite', alternatives: ['hazimemasite'] },
                     { japanese: 'お元気ですか', hiragana: 'おげんきですか', romaji: 'ogenkidesuka', alternatives: [] },
                     { japanese: 'げんきです', hiragana: 'げんきです', romaji: 'genkidesu', alternatives: [] },
@@ -173,24 +173,24 @@ class EducationalTypingApp {
                     { japanese: 'また明日', hiragana: 'またあした', romaji: 'mataashita', alternatives: [] },
                     { japanese: 'また今度', hiragana: 'またこんど', romaji: 'matakondo', alternatives: [] },
                     { japanese: 'お疲れ様', hiragana: 'おつかれさま', romaji: 'otsukaresama', alternatives: ['otukaresamadesu'] },
-                    { japanese: 'いいえ、けっこうです', hiragana: 'いいえ、けっこうです', romaji: 'iie,kekkoudes', alternatives: [] },
+                    { japanese: 'いいえ、けっこうです', hiragana: 'いいえ、けっこうです', romaji: 'iie,kekkou desu', alternatives: [] },
                     { japanese: 'ちょっと待ってください', hiragana: 'ちょっとまってください', romaji: 'chottomattekudasai', alternatives: ['tyottomattekudasai'] },
-                    { japanese: 'お時間ありますか', hiragana: 'おじかんありますか', romaji: 'ojikanarimas', alternatives: ['ozikanarimaska'] },
+                    { japanese: 'お時間ありますか', hiragana: 'おじかんありますか', romaji: 'ozikanarimasuka', alternatives: ['ojikanarimasuka'] },
                     { japanese: 'お手伝いしましょうか', hiragana: 'おてつだいしましょうか', romaji: 'otetsudaishimashoka', alternatives: [] },
-                    { japanese: 'とても美味しいです', hiragana: 'とてもおいしいです', romaji: 'temoishiides', alternatives: ['temooisiidesu'] },
+                    { japanese: 'とても美味しいです', hiragana: 'とてもおいしいです', romaji: 'totemooishiidesu', alternatives: ['totemooisiidesu'] },
                     { japanese: 'お腹がすきました', hiragana: 'おなかがすきました', romaji: 'onakagasukimashita', alternatives: [] },
                     { japanese: 'のどが渇きました', hiragana: 'のどがかわきました', romaji: 'nodogakawakimashita', alternatives: [] },
-                    { japanese: '眠くなりました', hiragana: 'ねむくなりました', romaji: 'nemukumarimashita', alternatives: [] },
+                    { japanese: '眠くなりました', hiragana: 'ねむくなりました', romaji: 'nemukunarimashita', alternatives: [] },
                     { japanese: 'お金を貸してください', hiragana: 'おかねをかしてください', romaji: 'okanewokashitekudasai', alternatives: [] },
-                    { japanese: 'どこで買いましたか', romaji: 'dokoaikaimashitaka', alternatives: [] },
-                    { japanese: 'いくらですか', hiragana: 'いくらですか', romaji: 'ikuraeska', alternatives: [] },
-                    { japanese: 'それは高すぎます', hiragana: 'それはたかすぎます', romaji: 'sorehatakasugimasku', alternatives: [] },
+                    { japanese: 'どこで買いましたか', hiragana: 'どこでかいましたか', romaji: 'dokodekaimashitaka', alternatives: [] },
+                    { japanese: 'いくらですか', hiragana: 'いくらですか', romaji: 'ikuradesuka', alternatives: [] },
+                    { japanese: 'それは高すぎます', hiragana: 'それはたかすぎます', romaji: 'sorehatakasugimasuu', alternatives: [] },
                     { japanese: 'もう少し安くしてください', hiragana: 'もうすこしやすくしてください', romaji: 'mousukoshiyasukushitekudasai', alternatives: [] },
                     { japanese: '今日は暑いですね', hiragana: 'きょうはあついですね', romaji: 'kyouhaatsuidesune', alternatives: [] },
                     { japanese: '今日は寒いですね', hiragana: 'きょうはさむいですね', romaji: 'kyouhasamuidesune', alternatives: [] },
                     { japanese: '雨が降りそうです', hiragana: 'あめがふりそうです', romaji: 'amegafurisoudesu', alternatives: [] },
-                    { japanese: '電話番号を教えてください', hiragana: 'でんわばんごうをおしえてください', romaji: 'denwabangouwoshieekudasai', alternatives: [] },
-                    { japanese: '住所はどこですか', hiragana: 'じゅうしょはどこですか', romaji: 'juushowadokodesuka', alternatives: ['zyuusyowadokodeka'] },
+                    { japanese: '電話番号を教えてください', hiragana: 'でんわばんごうをおしえてください', romaji: 'denwabangouwooshietekudasai', alternatives: [] },
+                    { japanese: '住所はどこですか', hiragana: 'じゅうしょはどこですか', romaji: 'juushohadokodesuka', alternatives: ['zyuusyohadokodesuka'] },
                     { japanese: '今何時ですか', hiragana: 'いまなんじですか', romaji: 'imananjidesuka', alternatives: [] }
                 ],
                 requiredAccuracy: 90
@@ -225,6 +225,11 @@ class EducationalTypingApp {
         this.typedRomaji = '';
         this.validRomajiPatterns = [];
         this.activePatterns = [];
+        this.timeLimit = null;
+        this.timer = null;
+        this.timeRemaining = 0;
+        this.consecutiveFailures = 0;
+        this.maxConsecutiveFailures = 5;
         
         this.init();
     }
@@ -335,9 +340,13 @@ class EducationalTypingApp {
         this.currentScreen = 'learning';
         this.lessonProgress = 0;
         this.stats = { correct: 0, incorrect: 0, totalKeystrokes: 0, weakKeys: {}, startTime: new Date() };
+        this.consecutiveFailures = 0;
         
         // レベル6のみ30問、他は20問
         this.maxProgress = lesson === 'daily-conversation' ? 30 : 20;
+        
+        // レベル6のみ制限時間を設定
+        this.timeLimit = lesson === 'daily-conversation' ? 15 : null;
         
         document.getElementById('lesson-menu').style.display = 'none';
         document.getElementById('learning-area').style.display = 'block';
@@ -352,6 +361,7 @@ class EducationalTypingApp {
         
         this.generateQuestion();
         this.updateStats();
+        this.updateFailureCounter();
         
         setTimeout(() => document.getElementById('typing-input').focus(), 100);
     }
@@ -416,6 +426,8 @@ class EducationalTypingApp {
         
         this.highlightTargetKey();
         this.highlightTargetFinger();
+        this.startTimer();
+        this.updateFailureCounter();
     }
 
     getNextTargetChar() {
@@ -487,6 +499,117 @@ class EducationalTypingApp {
         }
     }
     
+    startTimer() {
+        this.clearTimer();
+        
+        if (this.timeLimit) {
+            this.timeRemaining = this.timeLimit;
+            this.updateTimerDisplay();
+            
+            this.timer = setInterval(() => {
+                this.timeRemaining--;
+                this.updateTimerDisplay();
+                
+                if (this.timeRemaining <= 0) {
+                    this.handleTimeUp();
+                }
+            }, 1000);
+        }
+    }
+    
+    clearTimer() {
+        if (this.timer) {
+            clearInterval(this.timer);
+            this.timer = null;
+        }
+    }
+    
+    updateTimerDisplay() {
+        const timerElement = document.getElementById('timer-display');
+        if (timerElement && this.timeLimit) {
+            timerElement.textContent = `残り時間: ${this.timeRemaining}秒`;
+            timerElement.style.display = 'block';
+            
+            // 時間が少なくなったら色を変える
+            if (this.timeRemaining <= 3) {
+                timerElement.style.color = '#ff4444';
+            } else if (this.timeRemaining <= 5) {
+                timerElement.style.color = '#ff8800';
+            } else {
+                timerElement.style.color = '#333';
+            }
+        } else if (timerElement) {
+            timerElement.style.display = 'none';
+        }
+    }
+    
+    updateFailureCounter() {
+        const failureElement = document.getElementById('failure-counter');
+        if (failureElement && this.currentLesson === 'daily-conversation') {
+            const remaining = this.maxConsecutiveFailures - this.consecutiveFailures;
+            failureElement.textContent = `連続失敗: ${this.consecutiveFailures}回 (あと${remaining}回でゲームオーバー)`;
+            failureElement.style.display = 'block';
+            
+            // 失敗回数に応じて色を変える
+            if (remaining <= 1) {
+                failureElement.style.color = '#ff0000';
+            } else if (remaining <= 2) {
+                failureElement.style.color = '#ff4444';
+            } else if (remaining <= 3) {
+                failureElement.style.color = '#ff8800';
+            } else {
+                failureElement.style.color = '#d32f2f';
+            }
+        } else if (failureElement) {
+            failureElement.style.display = 'none';
+        }
+    }
+    
+    handleTimeUp() {
+        this.clearTimer();
+        
+        this.stats.incorrect++;
+        this.consecutiveFailures++;
+        
+        const targetChar = this.getNextTargetChar();
+        if (targetChar) {
+            this.stats.weakKeys[targetChar] = (this.stats.weakKeys[targetChar] || 0) + 1;
+        }
+        
+        // レベル6で連続失敗回数が上限に達した場合、レッスンを強制終了
+        if (this.currentLesson === 'daily-conversation' && this.consecutiveFailures >= this.maxConsecutiveFailures) {
+            this.showFeedback('incorrect', `${this.maxConsecutiveFailures}回連続で失敗しました。レッスンを終了します。`);
+            setTimeout(() => {
+                this.showResult();
+            }, 2500);
+            return;
+        }
+        
+        // レベル6で時間切れした場合、ゲームオーバー
+        if (this.currentLesson === 'daily-conversation') {
+            this.showFeedback('incorrect', '時間切れ！ゲームオーバーです。');
+            setTimeout(() => {
+                this.showResult();
+            }, 2500);
+            return;
+        }
+        
+        let feedbackMessage = '時間切れ！';
+        this.showFeedback('incorrect', feedbackMessage);
+        const inputElement = document.getElementById('typing-input');
+        inputElement.value = '';
+        
+        if (this.isWordMode || this.isSentenceMode) {
+            this.typedRomaji = '';
+            this.activePatterns = [...this.validRomajiPatterns];
+        }
+        
+        this.highlightTargetKey();
+        this.highlightTargetFinger();
+        this.updateStats();
+        this.updateFailureCounter();
+    }
+    
     handleTyping(input) {
         if (this.currentScreen !== 'learning') return;
         
@@ -535,10 +658,13 @@ class EducationalTypingApp {
     }
     
     handleCorrectAnswer() {
+        this.clearTimer();
         this.stats.correct++;
         this.lessonProgress++;
+        this.consecutiveFailures = 0; // 正解時は連続失敗回数をリセット
         this.showFeedback('correct', '正解！');
         this.updateStats();
+        this.updateFailureCounter();
         
         // Clear input field for all modes
         const inputElement = document.getElementById('typing-input');
@@ -555,12 +681,28 @@ class EducationalTypingApp {
     
     handleIncorrectAnswer() {
         this.stats.incorrect++;
+        this.consecutiveFailures++;
+        
         const targetChar = this.getNextTargetChar();
         if (targetChar) {
             this.stats.weakKeys[targetChar] = (this.stats.weakKeys[targetChar] || 0) + 1;
         }
         
-        this.showFeedback('incorrect', 'もう一度！');
+        // レベル6で連続失敗回数が上限に達した場合、レッスンを強制終了
+        if (this.currentLesson === 'daily-conversation' && this.consecutiveFailures >= this.maxConsecutiveFailures) {
+            this.showFeedback('incorrect', `${this.maxConsecutiveFailures}回連続で失敗しました。レッスンを終了します。`);
+            setTimeout(() => {
+                this.showResult();
+            }, 2500);
+            return;
+        }
+        
+        let feedbackMessage = 'もう一度！';
+        if (this.currentLesson === 'daily-conversation' && this.consecutiveFailures > 1) {
+            feedbackMessage = `連続${this.consecutiveFailures}回目の失敗！あと${this.maxConsecutiveFailures - this.consecutiveFailures}回失敗するとレッスン終了です！`;
+        }
+        
+        this.showFeedback('incorrect', feedbackMessage);
         const inputElement = document.getElementById('typing-input');
         inputElement.value = '';
         
@@ -572,6 +714,7 @@ class EducationalTypingApp {
         this.highlightTargetKey();
         this.highlightTargetFinger();
         this.updateStats();
+        this.updateFailureCounter();
     }
     
     showFeedback(type, message) {
@@ -591,7 +734,14 @@ class EducationalTypingApp {
     }
     
     showResult() {
+        this.clearTimer();
         this.currentScreen = 'result';
+        
+        // 失敗カウンターを非表示にする
+        const failureElement = document.getElementById('failure-counter');
+        if (failureElement) {
+            failureElement.style.display = 'none';
+        }
         const totalAttempts = this.stats.correct + this.stats.incorrect;
         const accuracy = totalAttempts > 0 ? Math.round((this.stats.correct / totalAttempts) * 100) : 100;
         const lessonData = this.lessons[this.currentLesson];
